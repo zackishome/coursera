@@ -1,9 +1,0 @@
-*.o
-*.out
-
-*~
-\#*\#
-.*.s[a-w][a-z]
-
-*.pristine
-*.bak
