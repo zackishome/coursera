@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
   // to 11 instead? How about 100? 1000? Make sure to set
   // the second argument back to 10 when you are done
   // testing.
-  // Answer:
+  // Answer: 11 triggers stack smashing error; 100/1000 segmentation fault; compiler protection mechanism.
   fillArray(array, 10);
 
   int value;
@@ -66,7 +66,10 @@ int main(int argc, char* argv[]) {
   // TODO(2): We can actually use the address of the value
   // declared here as if it were an array of a single
   // element; why is this possible?
-  // Answer:
+  // Answer: set length to 100 segamentation error! because 
+  // the function fillarray do not know what the value is. 
+  // the function interface have no knowledge of the input parameters
+  // as long as the inputs meets some requirements of the function interface. 
   fillArray(&value, 1);
   // fillArray should set value to 0 * 3 + 2 = 2.
   assert(value == 2);
@@ -105,7 +108,8 @@ int main(int argc, char* argv[]) {
   // it via the free() function. malloc() takes a single
   // argument, which is the number of bytes to allocate.
   // sizeof(int) gives how many bytes an int contains
-  // (which is four), so sizeof(int) * 5 is 20.
+  // (which is four), so sizeof(int) * 5 is 20. malloc()
+  // returns a pointer to the address of the allocated.
   int* heap_array = (int*) malloc(sizeof(int) * 5);
   fillArray(heap_array, 5);
   // Now that we have finished with the heap-allocated
@@ -118,6 +122,7 @@ int main(int argc, char* argv[]) {
   // use memory, which is often invaluable for C and
   // C++ programming.
   // Answer:
+  
   free(heap_array);
 
   // TODO(4): Now it's your turn to write some code.
