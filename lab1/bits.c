@@ -111,6 +111,7 @@ NOTES:
 
 
 #endif
+#include "bits.h"
 // Rating: 1
 /* 
  * bitAnd - x&y using only ~ and | 
@@ -120,7 +121,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return 2;
+	int res_bitAnd;
+	res_bitAnd=~((~x)|(~y));
+  return res_bitAnd;
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -130,7 +133,9 @@ int bitAnd(int x, int y) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+	int res_bitXor;
+	res_bitXor=(~(x&y))&(~((~x)&(~y)));
+  return res_bitXor;
 }
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
@@ -140,7 +145,24 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int thirdBits(void) {
-  return 2;
+
+	// the word size depends on the processor arcitecture here we assume 32 bit system, with word size 32 bits.
+	// int a, *ptr;
+	// ptr=&a;
+	/*
+	 *   Desired output: 0100 1001 0010 0100 1001 0010 0100 1001 
+ *   Step 1:         0000 0000 0000 0000 0000 0000 0100 1001  0x49
+ *   Step 2:         0000 0000 0000 0000 1001 0010 0000 0000  Shift << 9
+ *   Step 3:         0000 0000 0000 0000 1001 0010 0100 1001  Add 0x49
+ *   Step 4:         0100 1001 0010 0100 0000 0000 0000 0000  Shift << (6+4*3)
+ *   Step 5:         0100 1001 0010 0100 1001 0010 0100 1001  Add result from step 3
+ */
+  int a = 0x49;
+  int b = (a << 9);
+  int c = b + a;
+  return (c << 18) + c; // Steps 4 and 5
+	// reference to the answers from github:
+	// https://github.com/maxgillett/coursera/tree/master/Hardware%20Software%20Interface/course-materials
 }
 // Rating: 2
 /* 
@@ -153,7 +175,9 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  int a = 33+~n;
+  int b=(a<<a)>>a;
+  return !(b+~x+1);
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
@@ -164,6 +188,7 @@ int fitsBits(int x, int n) {
  *  Rating: 2
  */
 int sign(int x) {
+	
   return 2;
 }
 /* 
