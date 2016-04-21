@@ -111,6 +111,7 @@ NOTES:
 
 
 #endif
+#include "bits.h"
 // Rating: 1
 /* 
  * bitAnd - x&y using only ~ and | 
@@ -120,7 +121,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return ~(~x | ~y);
+	int res_bitAnd;
+	res_bitAnd=~((~x)|(~y));
+  return res_bitAnd;
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -130,7 +133,9 @@ int bitAnd(int x, int y) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return ~(~(~x & y) & ~(x & ~y));
+	int res_bitXor;
+	res_bitXor=(~(x&y))&(~((~x)&(~y)));
+  return res_bitXor;
 }
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
@@ -140,11 +145,24 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int thirdBits(void) {
-  int result = 0x49;
-  result = (result << 8) + 0x24;
-  result = (result << 8) + 0x92;
-  result = (result << 8) + 0x49;
-  return result;
+
+	// the word size depends on the processor arcitecture here we assume 32 bit system, with word size 32 bits.
+	// int a, *ptr;
+	// ptr=&a;
+	/*
+	 *   Desired output: 0100 1001 0010 0100 1001 0010 0100 1001 
+ *   Step 1:         0000 0000 0000 0000 0000 0000 0100 1001  0x49
+ *   Step 2:         0000 0000 0000 0000 1001 0010 0000 0000  Shift << 9
+ *   Step 3:         0000 0000 0000 0000 1001 0010 0100 1001  Add 0x49
+ *   Step 4:         0100 1001 0010 0100 0000 0000 0000 0000  Shift << (6+4*3)
+ *   Step 5:         0100 1001 0010 0100 1001 0010 0100 1001  Add result from step 3
+ */
+  int a = 0x49;
+  int b = (a << 9);
+  int c = b + a;
+  return (c << 18) + c; // Steps 4 and 5
+	// reference to the answers from github:
+	// https://github.com/maxgillett/coursera/tree/master/Hardware%20Software%20Interface/course-materials
 }
 // Rating: 2
 /* 
@@ -157,8 +175,9 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  int mask = x >> 31;
-  return !(((~x & mask) + (x & ~mask)) >> (n + ~0));
+  int a = 33+~n;
+  int b=(a<<a)>>a;
+  return !(b+~x+1);
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
@@ -169,9 +188,8 @@ int fitsBits(int x, int n) {
  *  Rating: 2
  */
 int sign(int x) {
-  int s = x >> 31;
-  int sig = (s & (~0)) + ((!s) & (!!x)); 
-  return sig;
+	
+  return 2;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -182,8 +200,7 @@ int sign(int x) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  int mask = 0xff;
-  return ((x & (mask << (n << 3))) >> (n << 3)) & mask;
+  return 2;
 }
 // Rating: 3
 /* 
@@ -195,8 +212,7 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  int mask = ((1 << 31) >> n) << 1;
-  return (x >> n) & ~mask;
+  return 2;
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
@@ -207,10 +223,7 @@ int logicalShift(int x, int n) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  int sx = x>>31;
-  int sy = y>>31;
-  int ssum = (x+y) >> 31;
-  return !(~(sx ^ sy) & (sy ^ ssum));
+  return 2;
 }
 // Rating: 4
 /* 
@@ -221,7 +234,7 @@ int addOK(int x, int y) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return (~((x >> 31) | (((~x) + 1) >> 31))) & 1;
+  return 2;
 }
 // Extra Credit: Rating: 3
 /* 
@@ -232,7 +245,7 @@ int bang(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return (((!!x << 31) >> 31) & y) +((((!x) << 31) >> 31) & z);
+  return 2;
 }
 // Extra Credit: Rating: 4
 /*
@@ -244,6 +257,5 @@ int conditional(int x, int y, int z) {
  *   Rating: 4
  */
 int isPower2(int x) {
-  int mask = ~0;
-  return (!(x & (x + mask)) & (!(x >> 31)) & (~(!x)));
+  return 2;
 }
