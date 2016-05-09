@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+
+void main(){
+  int x=0;
+  // printf("The ! of input is %d \n",!argc);
+  printf("The output is: %d \n",!x);
+}

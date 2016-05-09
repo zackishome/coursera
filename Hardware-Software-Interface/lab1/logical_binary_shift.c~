@@ -1,0 +1,11 @@
+
+#include <stdio.h>
+
+void  main (void){
+  signed char a=-8;
+  
+  printf("Binary shift results is: %d \n",a>>2);
+
+
+
+}

@@ -20,6 +20,7 @@
  * STEP 1: Read the following instructions carefully.
  */
 
+/*
 You will provide your solution to this homework by
 editing the collection of functions in this source file.
 
@@ -28,7 +29,7 @@ INTEGER CODING RULES:
   Replace the "return" statement in each function with one
   or more lines of C code that implements the function. Your code 
   must conform to the following style:
- 
+*/
   int Funct(arg1, arg2, ...) {
       /* brief description of how your implementation works */
       int var1 = Expr1;
@@ -41,7 +42,7 @@ INTEGER CODING RULES:
       return ExprR;
   }
 
-  Each "Expr" is an expression using ONLY the following:
+/* Each "Expr" is an expression using ONLY the following:
   1. Integer constants 0 through 255 (0xFF), inclusive. You are
       not allowed to use big constants such as 0xffffffff.
   2. Function arguments and local variables (no global variables).
@@ -69,12 +70,13 @@ INTEGER CODING RULES:
   3. Has unpredictable behavior when shifting an integer by more
      than the word size.
 
-EXAMPLES OF ACCEPTABLE CODING STYLE:
+     EXAMPLES OF ACCEPTABLE CODING STYLE: */
   /*
    * pow2plus1 - returns 2^x + 1, where 0 <= x <= 31
    */
   int pow2plus1(int x) {
-     /* exploit ability of shifts to compute powers of 2 */
+     /* exploit ability of shifts to compute powers of 2
+    binary shift(<<) 1 to get the power of 2  */
      return (1 << x) + 1;
   }
 
@@ -88,7 +90,7 @@ EXAMPLES OF ACCEPTABLE CODING STYLE:
      return result;
   }
 
-NOTES:
+/*NOTES:
   1. Use the dlc (data lab checker) compiler (described in the handout) to 
      check the legality of your solutions.
   2. Each function has a maximum number of operators (! ~ & ^ | + << >>)
@@ -100,7 +102,7 @@ NOTES:
      header comment for each function. If there are any inconsistencies 
      between the maximum ops in the writeup and in this file, consider
      this file the authoritative source.
-
+*/
 /*
  * STEP 2: Modify the following functions according the coding rules.
  * 
@@ -188,7 +190,7 @@ int fitsBits(int x, int n) {
  *  Rating: 2
  */
 int sign(int x) {
-	
+  
   return 2;
 }
 /* 
@@ -200,7 +202,9 @@ int sign(int x) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+  lshift=(4+~n)<<3;
+  rshift=n<<3;
+  return (x<<lshift)>>rshift;
 }
 // Rating: 3
 /* 
@@ -212,7 +216,7 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  return (x>>n)+(1<<31);
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
@@ -223,7 +227,7 @@ int logicalShift(int x, int n) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+  return (x+y)>>31 ;
 }
 // Rating: 4
 /* 
@@ -234,7 +238,8 @@ int addOK(int x, int y) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+  
+  return ;
 }
 // Extra Credit: Rating: 3
 /* 
